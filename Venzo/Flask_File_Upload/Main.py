@@ -56,7 +56,7 @@ def uploadFiles():
             uploaded_file.save(file_path) 
             parseCSV(file_path, Schema)
             
-      return redirect(url_for('index'))
+    return redirect(url_for('index'))
 
 def parseCSV(filePath, Schema):
       # CVS Column Names
@@ -66,7 +66,7 @@ def parseCSV(filePath, Schema):
       # Loop through the Rows
       
     for i,row in csvData.iterrows():
-        sql = """INSERT INTO """str(Schema)+"""."""+"""public.master_study_list_2022_01_21_17_09_11 (first_name, last_name, address, street, state, zip, Created_Date) VALUES (%s, %s, %s, %s, %s, %s, %s)"""
+        sql = """INSERT INTO """+str(Schema)+"""."""+"""public.master_study_list_2022_01_21_17_09_11 (first_name, last_name, address, street, state, zip, Created_Date) VALUES (%s, %s, %s, %s, %s, %s, %s)"""
         value = (row['first_name'],row['last_name'],row['address'],row['street'],row['state'],str(row['zip']), str(now.strftime("%d_%m_%Y_%H_%M_%S")))
         Closed_DOFD_Result = dbConnection.execute(Closed_DOFD_Query).fetchone()
         dbConnection_decision.execute(sql, value, if_exists='append')   
